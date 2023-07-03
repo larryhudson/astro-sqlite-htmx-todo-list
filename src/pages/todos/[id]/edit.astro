@@ -1,0 +1,16 @@
+---
+import {getRecordById} from "@src/utils/db";
+
+import Dump from "@src/components/Dump.astro";
+
+const {id} = Astro.params;
+
+console.log({pageParamId: id});
+
+const todo = getRecordById('todos', id);
+---
+
+<form>
+    <input name="title" value={todo.title} />
+    <button hx-put={`/todos/${todo.id}`}>Save</button>
+</form>

@@ -1,0 +1,18 @@
+---
+import TodoItem from "./TodoItem.astro";
+
+const {todos} = Astro.props;
+---
+<ul>
+	{todos.map(todo => (
+	<li hx-target="this" hx-swap="innerHTML">
+		<TodoItem {todo} />
+	</li>
+	))}
+</ul>
+
+<h2>Add new</h2>
+<form hx-post="/todos/new">
+	<input name="title" />
+	<button>Add</button>
+</form>

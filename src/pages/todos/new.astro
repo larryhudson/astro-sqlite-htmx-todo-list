@@ -1,0 +1,14 @@
+---
+import {createRecord, executeQuery} from "@src/utils/db";
+import TodosList from "@src/components/TodosList.astro";
+
+if (Astro.request.method === 'POST') {
+    const formData = await Astro.request.formData();
+    const title = formData.get('title');
+    createRecord('todos', {title});
+}
+
+const todos = executeQuery('todos');
+---
+
+<TodosList {todos} />

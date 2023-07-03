@@ -1,0 +1,8 @@
+---
+const {todo} = Astro.props;
+---
+
+
+{todo.title}
+<button hx-get={`/todos/${todo.id}/edit`}>Edit</button>
+<button hx-swap="delete" hx-target="closest li" hx-delete={`/todos/${todo.id}`}>Delete</button>

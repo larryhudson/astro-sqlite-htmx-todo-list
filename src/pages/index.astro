@@ -1,3 +1,10 @@
+---
+import {executeQuery} from "@src/utils/db";
+import Dump from "@src/components/Dump.astro";
+import TodosList from "@src/components/TodosList.astro";
+
+const todos = executeQuery('todos');
+---
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -9,10 +16,19 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
-		<form hx-get="/test">
-			<input name="name" type="text" value="Larry" />
-			<button>Go</button>
-		</form>
+		<p>To dos:</p>
+		<ul>
+			<li>[DONE] add better-sqlite3 and set up db</li>
+			<li>[DONE] list to dos</li>
+			<li>[DONE] add new to do</li>
+			<li>delete to do</li>
+			<li>[DONE] edit to do</li>
+			<li>mark todo as completed</li>
+		</ul>
+		<h2>To dos</h2>
+		<div hx-target="this" hx-swap="innerHTML">
+			<TodosList {todos} />
+		</div>
 	</body>
 
 

@@ -1,0 +1,21 @@
+---
+import {getRecordById, updateRecord, deleteRecordById} from "@src/utils/db";
+
+const {id} = Astro.params;
+
+if (Astro.request.method === 'PUT') {
+    console.log("putting")
+    const formData = await Astro.request.formData();
+    const dataObj = Object.fromEntries(formData.entries());
+    updateRecord('todos', id, dataObj);
+} else if (Astro.request.method === 'DELETE') {
+    deleteRecordById('todos', id); 
+    return new Response(null, {status: 204});
+}
+
+const todo = getRecordById('todos', id);
+---
+
+{todo.title}
+<button hx-get={`/todos/${todo.id}/edit`}>Edit</button>
+<button hx-delete={`/todos/${todo.id}`}>Delete</button>
